@@ -6,11 +6,13 @@ paths = [
     'XVSRQJI',
     'IJMQUW',
     'WUQMJI',
-    'IJFDACB'
+    'QWEZWWEZA'
 ]
 
-partialPath = 'WU'
-time = 16  # 9 -16
+weak_points = ['Q']
+
+partialPath = 'WWEZ'
+time = 15  # 9 -16
 
 
 def get_next_step(thePath, time):
@@ -35,9 +37,13 @@ def get_next_step(thePath, time):
     if sum(paths_fully_matching) == 1:
         for i, v in enumerate(paths_fully_matching):
             if v is True:
-                print('100% probability of next step: ' + paths[i].split(thePath)[1][0])
+                predictedPoint = paths[i].split(thePath)[1][0]
+                print('100% probability of next step: ' + predictedPoint)
+                if predictedPoint in weak_points:
+                    print('warning, might lose connection next point!')
+
     elif sum(paths_fully_matching) == 0:
-        if len(thePath) <= 1:
+        if len(thePath) <= 2:
             print('No pattern was matched')
         else:
             get_next_step(thePath[1:], time)
@@ -52,5 +58,7 @@ def get_next_step(thePath, time):
                 nextStep = paths[i].split(thePath)[1][0]
                 prevLength = (abs((i+9)-time))
         print('highest probability of next step: ' + nextStep)
+        if nextStep in weak_points:
+            print('warning, might lose connection next point!')
 
 get_next_step(partialPath, time)
